@@ -1,0 +1,33 @@
+domain casino_mdp {
+    requirements = { reward-stochastic, cpf-stochastic };
+
+    pvariables {
+        S: {state-fluent, int, default = 0};  // State: 0,1,2
+        action: {action-fluent, int, default = 1};  // Action: 1 or 2
+    };
+
+    cpfs {
+        S' = if ((action == 1) & (S == 0)) then
+                if (Bernoulli(0.5)) then 1 else 2
+             else if ((action == 1) & (S == 1)) then
+                if (Bernoulli(2.0/3.0)) then 0 else 2
+             else if ((action == 1) & (S == 2)) then
+                if (Bernoulli(0.75)) then 0 else 1
+             else if ((action == 2) & (S == 0)) then
+                if (Bernoulli(0.125)) then 1 else 2
+             else if ((action == 2) & (S == 1)) then
+                if (Bernoulli(0.5)) then 0 else 2
+             else if ((action == 2) & (S == 2)) then
+                if (Bernoulli(0.75)) then 0 else 1
+             else S;
+    };
+
+    reward =
+        if (S == 0 & action == 1) then Bernoulli(0.2)
+        else if (S == 0 & action == 2) then Bernoulli(0.7)
+        else if (S == 1 & action == 1) then Normal(1, 1)
+        else if (S == 1 & action == 2) then Normal(0, 1)
+        else if (S == 2 & action == 1) then Binomial(5, 0.1)
+        else if (S == 2 & action == 2) then Binomial(7, 1/14)
+        else 0;
+}

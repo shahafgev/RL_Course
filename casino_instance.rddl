@@ -1,0 +1,18 @@
+non-fluents aaa {
+}
+
+instance casino_instance {
+    domain = casino_mdp;
+
+
+    init-state {
+        S = 0;
+    };
+
+
+    max-nondef-actions = 1;
+    horizon = 3;
+    discount = 1.0;
+}
+
+
