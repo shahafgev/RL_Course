@@ -3,6 +3,7 @@ This repository contains assignments for a course on Reinforcement Learning (RL)
 
 ## 📁 Repository Structure
 
+```
 RL_COURSE/
 ├── assignment1/           # First assignment: Casino MDP policy evaluation
 │   ├── casino_domain.rddl
@@ -12,5 +13,6 @@ RL_COURSE/
 ├── assignment2/           # Placeholder for upcoming assignment
 ├── assignment3/           # Placeholder for upcoming assignment
 └── README.md              # Project overview and instructions
+```
 
 Each assignment is placed in its own folder and is self-contained, with domain files, code, and output relevant to that task.

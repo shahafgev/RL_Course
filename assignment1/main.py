@@ -48,7 +48,7 @@ def run_trials(policy_func, num_trials):
 
 
 # Simulation range
-trial_counts = list(range(1, 1001, 10))
+trial_counts = list(range(1, 1002, 10))
 rewards_fixed, rewards_random, rewards_optimal = [], [], []
 
 for n in trial_counts:
