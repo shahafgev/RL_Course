@@ -1,7 +1,11 @@
 import pyRDDLGym
-import os
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+
+# Ensure script runs as if in its own folder
+script_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(script_dir)
 
 
 # Optimal actions by step and state (hardcoded from earlier analysis)
