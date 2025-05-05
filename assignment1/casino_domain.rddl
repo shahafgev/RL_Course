@@ -1,4 +1,4 @@
-domain casino_mdp {
+domain casino_domain {
     requirements = { reward-stochastic, cpf-stochastic };
 
     pvariables {

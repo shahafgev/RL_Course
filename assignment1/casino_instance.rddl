@@ -1,4 +1,4 @@
-non-fluents aaa {
+non-fluents param {
 }
 
 instance casino_instance {
