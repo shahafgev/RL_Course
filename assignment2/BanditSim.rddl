@@ -1,0 +1,29 @@
+domain BanditSim {
+  types {
+    arm : object;
+  };
+
+  pvariables {
+    drawn(arm) : action-fluent;
+    regret : state-fluent;
+    arm_index(arm) : non-fluent;
+  };
+
+
+  cpfs {
+    reward(a) = Bernoulli((arm_index[a] + 1.0) / 101.0);
+    regret' = regret + max([ (arm_index[a] + 1.0) / 101.0 | a : arm ])
+              - sum([ if (drawn(a)) then (reward(a)) else (0.0) | a : arm ]);
+  };
+
+  reward = -regret;
+
+  action-preconditions {
+    sum([ if (drawn(a)) then (1) else (0) | a : arm ]) = 1;
+  };
+
+  state-invariants {
+  };
+
+  terminal = false;
+}

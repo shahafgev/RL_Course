@@ -1,0 +1,32 @@
+instance instance_5jobs {
+  domain = job_scheduler;
+
+  objects {
+    job : { j1, j2, j3, j4, j5 };
+  }
+
+  init-state {
+    job_done(j1) = false;
+    job_done(j2) = false;
+    job_done(j3) = false;
+    job_done(j4) = false;
+    job_done(j5) = false;
+  }
+
+  non-fluents {
+    mu(j1) = 0.6;
+    mu(j2) = 0.5;
+    mu(j3) = 0.3;
+    mu(j4) = 0.7;
+    mu(j5) = 0.1;
+
+    cost(j1) = 1.0;
+    cost(j2) = 4.0;
+    cost(j3) = 6.0;
+    cost(j4) = 2.0;
+    cost(j5) = 9.0;
+  }
+
+  discount = 1.0;
+  horizon = 100;
+}
