@@ -1,0 +1,15 @@
+non-fluents  job_instance_nonfluents {
+}
+instance job_scheduler_instance {
+  domain = JobScheduling;
+  init-state {
+    job1 = false;
+    job2 = false;
+    job3 = false;
+    job4 = false;
+    job5 = false;
+  };
+  horizon = 1000;
+  discount = 1.0;
+  max-nondef-actions = 1;
+}

@@ -1,0 +1,33 @@
+
+domain job_scheduler_domain {
+  requirements = { reward-stochastic, concurrent };
+
+  pvariables {
+    job1 : { state-fluent, bool, default = false };
+    job2 : { state-fluent, bool, default = false };
+    job3 : { state-fluent, bool, default = false };
+    job4 : { state-fluent, bool, default = false };
+    job5 : { state-fluent, bool, default = false };
+
+    do_job1 : { action-fluent, bool, default = false };
+    do_job2 : { action-fluent, bool, default = false };
+    do_job3 : { action-fluent, bool, default = false };
+    do_job4 : { action-fluent, bool, default = false };
+    do_job5 : { action-fluent, bool, default = false };
+  };
+
+  cpfs {
+    job1' = if (do_job1 ^ ~job1) then Bernoulli(0.6) else job1;
+    job2' = if (do_job2 ^ ~job2) then Bernoulli(0.5) else job2;
+    job3' = if (do_job3 ^ ~job3) then Bernoulli(0.3) else job3;
+    job4' = if (do_job4 ^ ~job4) then Bernoulli(0.7) else job4;
+    job5' = if (do_job5 ^ ~job5) then Bernoulli(0.1) else job5;
+  };
+
+  reward =
+    (if (~job1) then 1 else 0) +
+    (if (~job2) then 4 else 0) +
+    (if (~job3) then 6 else 0) +
+    (if (~job4) then 2 else 0) +
+    (if (~job5) then 9 else 0);
+}
