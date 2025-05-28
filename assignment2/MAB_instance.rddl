@@ -1,0 +1,128 @@
+non-fluents param {
+}
+
+instance MAB_instance {
+  domain = MAB_domain;
+
+  objects {
+    arm : {
+      a1, a2, a3, a4, a5, a6, a7, a8, a9, a10,
+      a11, a12, a13, a14, a15, a16, a17, a18, a19, a20,
+      a21, a22, a23, a24, a25, a26, a27, a28, a29, a30,
+      a31, a32, a33, a34, a35, a36, a37, a38, a39, a40,
+      a41, a42, a43, a44, a45, a46, a47, a48, a49, a50,
+      a51, a52, a53, a54, a55, a56, a57, a58, a59, a60,
+      a61, a62, a63, a64, a65, a66, a67, a68, a69, a70,
+      a71, a72, a73, a74, a75, a76, a77, a78, a79, a80,
+      a81, a82, a83, a84, a85, a86, a87, a88, a89, a90,
+      a91, a92, a93, a94, a95, a96, a97, a98, a99, a100
+    };
+  };
+
+non-fluents {
+        NUMBER_OF_ARMS = 100.0;
+        arm_index(a1) = 1.0;
+        arm_index(a2) = 2.0;
+        arm_index(a3) = 3.0;
+        arm_index(a4) = 4.0;
+        arm_index(a5) = 5.0;
+        arm_index(a6) = 6.0;
+        arm_index(a7) = 7.0;
+        arm_index(a8) = 8.0;
+        arm_index(a9) = 9.0;
+        arm_index(a10) = 10.0;
+        arm_index(a11) = 11.0;
+        arm_index(a12) = 12.0;
+        arm_index(a13) = 13.0;
+        arm_index(a14) = 14.0;
+        arm_index(a15) = 15.0;
+        arm_index(a16) = 16.0;
+        arm_index(a17) = 17.0;
+        arm_index(a18) = 18.0;
+        arm_index(a19) = 19.0;
+        arm_index(a20) = 20.0;
+        arm_index(a21) = 21.0;
+        arm_index(a22) = 22.0;
+        arm_index(a23) = 23.0;
+        arm_index(a24) = 24.0;
+        arm_index(a25) = 25.0;
+        arm_index(a26) = 26.0;
+        arm_index(a27) = 27.0;
+        arm_index(a28) = 28.0;
+        arm_index(a29) = 29.0;
+        arm_index(a30) = 30.0;
+        arm_index(a31) = 31.0;
+        arm_index(a32) = 32.0;
+        arm_index(a33) = 33.0;
+        arm_index(a34) = 34.0;
+        arm_index(a35) = 35.0;
+        arm_index(a36) = 36.0;
+        arm_index(a37) = 37.0;
+        arm_index(a38) = 38.0;
+        arm_index(a39) = 39.0;
+        arm_index(a40) = 40.0;
+        arm_index(a41) = 41.0;
+        arm_index(a42) = 42.0;
+        arm_index(a43) = 43.0;
+        arm_index(a44) = 44.0;
+        arm_index(a45) = 45.0;
+        arm_index(a46) = 46.0;
+        arm_index(a47) = 47.0;
+        arm_index(a48) = 48.0;
+        arm_index(a49) = 49.0;
+        arm_index(a50) = 50.0;
+        arm_index(a51) = 51.0;
+        arm_index(a52) = 52.0;
+        arm_index(a53) = 53.0;
+        arm_index(a54) = 54.0;
+        arm_index(a55) = 55.0;
+        arm_index(a56) = 56.0;
+        arm_index(a57) = 57.0;
+        arm_index(a58) = 58.0;
+        arm_index(a59) = 59.0;
+        arm_index(a60) = 60.0;
+        arm_index(a61) = 61.0;
+        arm_index(a62) = 62.0;
+        arm_index(a63) = 63.0;
+        arm_index(a64) = 64.0;
+        arm_index(a65) = 65.0;
+        arm_index(a66) = 66.0;
+        arm_index(a67) = 67.0;
+        arm_index(a68) = 68.0;
+        arm_index(a69) = 69.0;
+        arm_index(a70) = 70.0;
+        arm_index(a71) = 71.0;
+        arm_index(a72) = 72.0;
+        arm_index(a73) = 73.0;
+        arm_index(a74) = 74.0;
+        arm_index(a75) = 75.0;
+        arm_index(a76) = 76.0;
+        arm_index(a77) = 77.0;
+        arm_index(a78) = 78.0;
+        arm_index(a79) = 79.0;
+        arm_index(a80) = 80.0;
+        arm_index(a81) = 81.0;
+        arm_index(a82) = 82.0;
+        arm_index(a83) = 83.0;
+        arm_index(a84) = 84.0;
+        arm_index(a85) = 85.0;
+        arm_index(a86) = 86.0;
+        arm_index(a87) = 87.0;
+        arm_index(a88) = 88.0;
+        arm_index(a89) = 89.0;
+        arm_index(a90) = 90.0;
+        arm_index(a91) = 91.0;
+        arm_index(a92) = 92.0;
+        arm_index(a93) = 93.0;
+        arm_index(a94) = 94.0;
+        arm_index(a95) = 95.0;
+        arm_index(a96) = 96.0;
+        arm_index(a97) = 97.0;
+        arm_index(a98) = 98.0;
+        arm_index(a99) = 99.0;
+        arm_index(a100) = 100.0;
+    };
+
+  horizon = 20000;
+  discount = 1.0;
+}

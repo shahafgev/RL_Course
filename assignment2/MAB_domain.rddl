@@ -1,0 +1,30 @@
+domain MAB_domain {
+    requirements = { reward-stochastic };
+
+    types {
+         arm: object;
+    };
+
+    pvariables {
+        NUMBER_OF_ARMS: {non-fluent, real, default = 100.0};
+        arm_index(arm) : {non-fluent, real, default = 0.0};
+
+        prob_val(arm): {interm-fluent, real};
+
+        chosen(arm): {state-fluent, bool, default = false};
+
+        roll(arm): {action-fluent, bool, default = false};
+
+    };
+
+    cpfs {
+        prob_val(?a) = arm_index(?a)/( NUMBER_OF_ARMS + 1);
+        chosen'(?a) = roll(?a);
+
+    };
+
+    reward = Bernoulli(
+      sum_{?a : arm} (if (roll(?a)) then prob_val(?a) else 0.0)
+    );
+
+}
