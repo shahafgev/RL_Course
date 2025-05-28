@@ -159,10 +159,8 @@ def td0_learn_v_pi_c(env, pi_c, V_pi_c, num_episodes=10000, alpha_schedule=None)
 
     return V, max_errors, s0_errors
 
-def q_learning_with_eval(env, V_star, alpha_schedule, 
-                         num_episodes=5000, epsilon=0.1, eval_interval=100):
+def q_learning_with_eval(env, V_star, alpha_schedule,num_episodes=5000, epsilon=0.1, eval_interval=100):
     gamma = 1.0
-    s0 = 0
 
     Q = np.zeros((NUM_STATES, NUM_JOBS))
     visit_counts = np.zeros((NUM_STATES, NUM_JOBS))
@@ -174,8 +172,8 @@ def q_learning_with_eval(env, V_star, alpha_schedule,
         done = False
 
         while not done:
-            s_idx = state_to_index(state)
-            state_bits = int_to_state(s_idx)
+            s_idx = state_to_index(state) # rddl state to int
+            state_bits = int_to_state(s_idx) # int to binary array
             available_actions = [i for i in range(NUM_JOBS) if state_bits[i] == 0]
 
             if not available_actions:
@@ -212,12 +210,27 @@ def q_learning_with_eval(env, V_star, alpha_schedule,
                 else:
                     pi_Q.append(0)  # terminal
 
+            # Compute ||V* - V^pi_Q||_∞
             V_pi_Q = compute_value_function_iterative(pi_Q, mu, c)
             max_errors.append(np.max(np.abs(V_star - V_pi_Q)))
-            s0_errors.append(abs(V_star[s0] - V_pi_Q[s0]))
+            # Compute |V*(s0) - argmin Q(s0,a)|
+            state_bits = int_to_state(0)
+            available_actions = [a for a in range(NUM_JOBS) if state_bits[a] == 0]
+            min_Q_s0 = np.min(Q[s_idx, available_actions]) if available_actions else 0
+            s0_errors.append(abs(V_star[s_idx] - min_Q_s0))
 
     return Q, max_errors, s0_errors
 
+def plot_errors(max_errors, s0_errors, title, label_max='||V_pi - V_td||_∞', label_s0='|V_pi(s0) - V_td(s0)|' ):
+    plt.plot(max_errors, label=label_max)
+    plt.plot(s0_errors, label=label_s0)
+    plt.xlabel('Episodes')
+    plt.ylabel('Error')
+    plt.ylim(0)
+    plt.legend()
+    plt.title(title)
+    plt.savefig(f'plots/{title}.png', dpi=300)
+    plt.close()
 
 
 c = [1, 4, 6, 2, 9]
@@ -256,34 +269,24 @@ def alpha_1_over_n(n): return 1.0 / n if n > 0 else 1.0
 def alpha_const(n): return 0.01
 def alpha_decay(n): return 10.0 / (100 + n)
 
-def plot_errors(max_errors, s0_errors, save_name):
-    plt.plot(max_errors, label='||V_pi - V_td||_∞')
-    plt.plot(s0_errors, label='|V_pi(s0) - V_td(s0)|')
-    plt.xlabel('Episodes')
-    plt.ylabel('Error')
-    plt.ylim(0)
-    plt.legend()
-    plt.title('TD(0) Convergence')
-    plt.savefig(f'plots/{save_name}.png', dpi=300)
-    plt.close()
 
-
+# # Run TD(0)
 # V_td, max_errors, s0_errors = td0_learn_v_pi_c(env, pi_c, V_pi_c, alpha_schedule=alpha_1_over_n)
-# plot_errors(max_errors, s0_errors, "Errors_1")
+# plot_errors(max_errors, s0_errors, title = 'TD(0) Convergence with 1 over n Schedule')
 
 # V_td2, max_errors2, s0_errors2 = td0_learn_v_pi_c(env, pi_c, V_pi_c, alpha_schedule=alpha_const)
-# plot_errors(max_errors2, s0_errors2, "Errors_2")
+# plot_errors(max_errors2, s0_errors2, title = 'TD(0) Convergence with Constant Schedule')
 
 # V_td3, max_errors3, s0_errors3 = td0_learn_v_pi_c(env, pi_c, V_pi_c, alpha_schedule=alpha_decay)
-# plot_errors(max_errors3, s0_errors3, "Errors_3")
+# plot_errors(max_errors3, s0_errors3, title = 'TD(0) Convergence with Decay Schedule')
 
-def alpha_cons2(n): return 0.001
 
 # Run Q-learning
-Q, max_errors, s0_errors = q_learning_with_eval(
-    env=env,
-    V_star=V_optimal,
-    alpha_schedule=alpha_const,
-    eval_interval=10,
-    epsilon=0.01)
-plot_errors(max_errors, s0_errors, "Q_errors_5")
+Q, max_errors, s0_errors = q_learning_with_eval(env=env, V_star=V_optimal, alpha_schedule=alpha_1_over_n)
+plot_errors(max_errors, s0_errors, title = 'Q-learning Convergence with 1 over n Schedule', label_max='||V* - V_pi_Q||_∞', label_s0='|V*(s0) - argmin Q(s0,a)|')
+
+Q, max_errors, s0_errors = q_learning_with_eval(env=env, V_star=V_optimal, alpha_schedule=alpha_const)
+plot_errors(max_errors, s0_errors, title = 'Q-learning Convergence with Constant Schedule', label_max='||V* - V_pi_Q||_∞', label_s0='|V*(s0) - argmin Q(s0,a)|')
+
+Q, max_errors, s0_errors = q_learning_with_eval(env=env, V_star=V_optimal, alpha_schedule=alpha_decay)
+plot_errors(max_errors, s0_errors, title = 'Q-learning Convergence with Decay Schedule', label_max='||V* - V_pi_Q||_∞', label_s0='|V*(s0) - argmin Q(s0,a)|')
